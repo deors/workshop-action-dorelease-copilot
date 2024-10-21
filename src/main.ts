@@ -7,18 +7,19 @@ import { wait } from './wait'
  */
 export async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
+    const relVer: string = core.getInput('release-version')
+    const tgtEnv: string = core.getInput('target-environment')
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    core.info(`Requested release version: ${relVer}`)
+    core.info(`Target environment: ${tgtEnv}`)
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    // Perform the actual release steps
+    await wait(1)
 
     // Set outputs for other workflow steps to use
     core.setOutput('time', new Date().toTimeString())
+    core.setOutput('release-status', 'success') // put the actual status here
+    core.setOutput('target-url', 'https://example.com') // put the actual URL here
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)

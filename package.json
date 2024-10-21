@@ -1,16 +1,16 @@
 {
-  "name": "typescript-action",
-  "description": "GitHub Actions TypeScript template",
+  "name": "workshop-action-dorelease-copilot",
+  "description": "A GitHub Action to perform releases with an IssueOps/ChatOps approach coded live with the help of GitHub Copilot",
   "version": "0.0.0",
   "author": "",
   "private": true,
-  "homepage": "https://github.com/actions/typescript-action",
+  "homepage": "https://github.com/deors/workshop-action-dorelease-copilot",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/deors/workshop-action-dorelease-copilot.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/typescript-action/issues"
+    "url": "https://github.com/deors/workshop-action-dorelease-copilot/issues"
   },
   "keywords": [
     "actions",

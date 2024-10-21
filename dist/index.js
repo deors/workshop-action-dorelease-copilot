@@ -24958,15 +24958,16 @@ const wait_1 = __nccwpck_require__(5259);
  */
 async function run() {
     try {
-        const ms = core.getInput('milliseconds');
-        // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-        core.debug(`Waiting ${ms} milliseconds ...`);
-        // Log the current timestamp, wait, then log the new timestamp
-        core.debug(new Date().toTimeString());
-        await (0, wait_1.wait)(parseInt(ms, 10));
-        core.debug(new Date().toTimeString());
+        const relVer = core.getInput('release-version');
+        const tgtEnv = core.getInput('target-environment');
+        core.info(`Requested release version: ${relVer}`);
+        core.info(`Target environment: ${tgtEnv}`);
+        // Perform the actual release steps
+        await (0, wait_1.wait)(1);
         // Set outputs for other workflow steps to use
         core.setOutput('time', new Date().toTimeString());
+        core.setOutput('release-status', 'success'); // put the actual status here
+        core.setOutput('target-url', 'https://example.com'); // put the actual URL here
     }
     catch (error) {
         // Fail the workflow run if an error occurs

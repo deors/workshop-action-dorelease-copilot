@@ -1,23 +1,32 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'DoRelease'
+description:
+  'A GitHub Action to perform releases with an IssueOps/ChatOps approach coded
+  live with the help of GitHub Copilot'
+author: 'Jorge Hidalgo'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: 'heart'
-  color: 'red'
+  icon: 'upload-cloud'
+  color: 'purple'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  release-version:
+    description: 'The version to release'
     required: true
-    default: '1000'
+  target-environment:
+    description: 'The target environment to deploy the release'
+    required: true
+    default: 'development'
 
 # Define your outputs here.
 outputs:
   time:
-    description: 'Your output description here'
+    description: 'The time the release was finished'
+  release-status:
+    description: 'Whether the release was successful or not'
+  target-url:
+    description: 'The URL of the target environment'
 
 runs:
   using: node20
