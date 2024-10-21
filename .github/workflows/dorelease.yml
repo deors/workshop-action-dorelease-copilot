@@ -1,0 +1,51 @@
+name: Perform the release
+on:
+  issue_comment:
+    types: [created, edited]
+permissions:
+  contents: read
+  issues: write
+jobs:
+  approve-release:
+    if:
+      contains(github.event.issue.labels.*.name, 'release') &&
+      contains(github.event.comment.body, '/approve')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Log release approval
+        run:
+          echo "Release approved for issue ${{ github.event.issue.number }} by
+          ${{ github.event.comment.user.login }}"
+      - name: Perform the release process
+        id: dorelease
+        uses: ./
+        with:
+          release-version: '0.0.1-hardcoded' # This should be the version of the release
+          target-environment: 'test-hardcoded' # This should be the target environment for the release
+      - name: Log release results
+        run: |
+          echo "${{ steps.dorelease.outputs.time }}"
+          echo "${{ steps.dorelease.outputs.release-status }}"
+          echo "${{ steps.dorelease.outputs.target-url }}"
+      - name: Close the issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh issue close ${{ github.event.issue.number }}
+  cancel-release:
+    if:
+      contains(github.event.issue.labels.*.name, 'release') &&
+      contains(github.event.comment.body, '/cancel')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Cancel Release
+        run:
+          echo "Release canceled for issue ${{ github.event.issue.number }} by
+          ${{ github.event.comment.user.login }}"
+      - name: Close the issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh issue close ${{ github.event.issue.number }}
