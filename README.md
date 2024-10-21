@@ -1,235 +1,206 @@
-# Create a GitHub Action Using TypeScript
+# workshop-action-dorelease-copilot
 
-[![GitHub Super-Linter](https://github.com/actions/typescript-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/actions/typescript-action/actions/workflows/ci.yml/badge.svg)
-[![Check dist/](https://github.com/actions/typescript-action/actions/workflows/check-dist.yml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/check-dist.yml)
-[![CodeQL](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yml)
-[![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
+A GitHub Action to perform releases with an IssueOps/ChatOps approach coded live
+with the help of GitHub Copilot including prompts and step-by-step guidance.
 
-Use this template to bootstrap the creation of a TypeScript action. :rocket:
+First delivered as a live coding talk in OpenSlava 2024.
 
-This template includes compilation support, tests, a validation workflow,
-publishing, and versioning guidance.
+## Part 1. Scaffolding the project
 
-If you are new, there's also a simpler introduction in the
-[Hello world JavaScript action repository](https://github.com/actions/hello-world-javascript-action).
+Ask copilot:
 
-## Create Your Own Action
+    hello. i would like to create a new github action using typescript. how can i start creating it? thanks.
 
-To create your own action, you can use this repository as a template! Just
-follow the below instructions:
+    i need to create a github action with typescript. could you respond with a step by step plan to create a brand new github action?
 
-1. Click the **Use this template** button at the top of the repository
-1. Select **Create a new repository**
-1. Select an owner and name for your new repository
-1. Click **Create repository**
-1. Clone your new repository
+    is there any available repo template to create a brand new github action with typescript? thanks.
 
-> [!IMPORTANT]
->
-> Make sure to remove or update the [`CODEOWNERS`](./CODEOWNERS) file! For
-> details on how to use this file, see
-> [About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners).
+    does exist any repository template to speed up github action creation?
 
-## Initial Setup
+    is there any available repo template to create a brand new github action with typescript? what are the steps that I need to customize the repository created from the template? thanks.
 
-After you've cloned the repository to your local machine or codespace, you'll
-need to perform some initial setup steps before you can develop your action.
+Go to `github.com` by clicking the link to `actions/typescript-action`
 
-> [!NOTE]
->
-> You'll need to have a reasonably modern version of
-> [Node.js](https://nodejs.org) handy (20.x or later should work!). If you are
-> using a version manager like [`nodenv`](https://github.com/nodenv/nodenv) or
-> [`nvm`](https://github.com/nvm-sh/nvm), this template has a `.node-version`
-> file at the root of the repository that will be used to automatically switch
-> to the correct version when you `cd` into the repository. Additionally, this
-> `.node-version` file is used by GitHub Actions in any `actions/setup-node`
-> actions.
+Create the repo from the template
 
-1. :hammer_and_wrench: Install the dependencies
+Clone it locally
 
-   ```bash
-   npm install
-   ```
+Change into directory
 
-1. :building_construction: Package the TypeScript for distribution
+Run in terminal:
 
-   ```bash
-   npm run bundle
-   ```
+    npm install
 
-1. :white_check_mark: Run the tests
+Open the folder in code
 
-   ```bash
-   $ npm test
+## Part 2. Customizing the template
 
-   PASS  ./index.test.js
-     ✓ throws invalid number (3ms)
-     ✓ wait 500 ms (504ms)
-     ✓ test runs (95ms)
+Ask copilot:
 
-   ...
-   ```
+    which files should i modify to customize the github action just created?
 
-## Update the Action Metadata
+Modify `action.yml`
 
-The [`action.yml`](action.yml) file defines metadata about your action, such as
-input(s) and output(s). For details about this file, see
-[Metadata syntax for GitHub Actions](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions).
+- Include input parameter `release-version`
+- Include input parameter `target-environment`
+- Include output parameter `release-status`
+- Include output parameter `target-url`
 
-When you copy this repository, update `action.yml` with the name, description,
-inputs, and outputs for your action.
+Modify `main.ts`
 
-## Update the Action Code
+- Update input and output parameters so they are matching the action definition
+- Add some dummy command in place of the actual release process
 
-The [`src/`](./src/) directory is the heart of your action! This contains the
-source code that will be run when your action is invoked. You can replace the
-contents of this directory with your own code.
+Run in terminal:
 
-There are a few things to keep in mind when writing your action code:
+    npm run build
+    npm run
+    npm run all
 
-- Most GitHub Actions toolkit and CI/CD operations are processed asynchronously.
-  In `main.ts`, you will see that the action is run in an `async` function.
+Optional: modify `package.json`
 
-  ```javascript
-  import * as core from '@actions/core'
-  //...
+Optional: modify `readme.md`
 
-  async function run() {
-    try {
-      //...
-    } catch (error) {
-      core.setFailed(error.message)
-    }
-  }
-  ```
+## Part 3: Update the unit tests
 
-  For more information about the GitHub Actions toolkit, see the
-  [documentation](https://github.com/actions/toolkit/blob/master/README.md).
+Ask copilot:
 
-So, what are you waiting for? Go ahead and start customizing your action!
+    where are test files located in the project?
 
-1. Create a new branch
+Click and modify `main.test.ts`:
 
-   ```bash
-   git checkout -b releases/v1
-   ```
+- Update mocks so the input and output parameters are matching the action
+  definition
+- Remove the second test case
 
-1. Replace the contents of `src/` with your action code
-1. Add tests to `__tests__/` for your source code
-1. Format, test, and build the action
+Run in terminal:
 
-   ```bash
-   npm run all
-   ```
+    npm run all
 
-   > This step is important! It will run [`ncc`](https://github.com/vercel/ncc)
-   > to build the final JavaScript action code with all dependencies included.
-   > If you do not run this step, your action will not work correctly when it is
-   > used in a workflow. This step also includes the `--license` option for
-   > `ncc`, which will create a license file for all of the production node
-   > modules used in your project.
+Commit and push changes
 
-1. Commit your changes
+Go to `github.com` and check the workflows
 
-   ```bash
-   git add .
-   git commit -m "My first action is ready!"
-   ```
+Lint checks should fail as the CI workflow has wrong input parameters
 
-1. Push them to your repository
+The CI workflow execution log confirms the problem
 
-   ```bash
-   git push -u origin releases/v1
-   ```
+## Part 4: Fix the CI workflow
 
-1. Create a pull request and get feedback on your action
-1. Merge the pull request into the `main` branch
+Ask copilot:
 
-Your action is now published! :rocket:
+    where is the github action CI located?
 
-For information about versioning your action, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-in the GitHub Actions toolkit.
+Click `ci.yml`
 
-## Validate the Action
+Change input params
 
-You can now validate the action by referencing it in a workflow file. For
-example, [`ci.yml`](./.github/workflows/ci.yml) demonstrates how to reference an
-action in the same repository.
+Ask copilot:
 
-```yaml
-steps:
-  - name: Checkout
-    id: checkout
-    uses: actions/checkout@v4
+    how can i run multi-line commands in a github action?
 
-  - name: Test Local Action
-    id: test-action
-    uses: ./
-    with:
-      milliseconds: 1000
+Add the other output params
 
-  - name: Print Output
-    id: output
-    run: echo "${{ steps.test-action.outputs.time }}"
-```
+Commit and push changes
 
-For example workflow runs, check out the
-[Actions tab](https://github.com/actions/typescript-action/actions)! :rocket:
+Go to `github.com` and check the workflows
 
-## Usage
+## Part 5: Add the release workflow
 
-After testing, you can create version tag(s) that developers can use to
-reference different stable versions of your action. For more information, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-in the GitHub Actions toolkit.
+Ask copilot:
 
-To include the action in a workflow in another repository, you can use the
-`uses` syntax with the `@` symbol to reference a specific branch, tag, or commit
-hash.
+    i need to write a github workflow that runs when an issue with a 'release' label has a new or modified comment and the comment content is '/approve'. could you generate the code of the workflow? thanks.
 
-```yaml
-steps:
-  - name: Checkout
-    id: checkout
-    uses: actions/checkout@v4
+Create `.github/workflows/dorelease.yml`
 
-  - name: Test Local Action
-    id: test-action
-    uses: actions/typescript-action@v1 # Commit with the `v1` tag
-    with:
-      milliseconds: 1000
+Use the suggested code as starting point
 
-  - name: Print Output
-    id: output
-    run: echo "${{ steps.test-action.outputs.time }}"
-```
+Ask copilot:
 
-## Publishing a New Release
+    could you double check whether the #selection is correct, and if not, suggest an alternate way of filtering the job run?
 
-This project includes a helper script, [`script/release`](./script/release)
-designed to streamline the process of tagging and pushing new releases for
-GitHub Actions.
+    what is the latest version for the actions/checkout github action?
 
-GitHub Actions allows users to select a specific version of the action to use,
-based on release tags. This script simplifies this process by performing the
-following steps:
+    how can I limit permissions for this github workflow?
 
-1. **Retrieving the latest release tag:** The script starts by fetching the most
-   recent SemVer release tag of the current branch, by looking at the local data
-   available in your repository.
-1. **Prompting for a new release tag:** The user is then prompted to enter a new
-   release tag. To assist with this, the script displays the tag retrieved in
-   the previous step, and validates the format of the inputted tag (vX.X.X). The
-   user is also reminded to update the version field in package.json.
-1. **Tagging the new release:** The script then tags a new release and syncs the
-   separate major tag (e.g. v1, v2) with the new release tag (e.g. v1.0.0,
-   v2.1.2). When the user is creating a new major release, the script
-   auto-detects this and creates a `releases/v#` branch for the previous major
-   version.
-1. **Pushing changes to remote:** Finally, the script pushes the necessary
-   commits, tags and branches to the remote repository. From here, you will need
-   to create a new release in GitHub so users can easily reference the new tags
-   in their workflows.
+Modify the `approve-release` job
+
+Fix the filter
+
+Add permissions
+
+Add the `dorelease` step
+
+Add a step to log `dorelease` outputs
+
+Add a step to close the issue
+
+Ask copilot:
+
+    could you check whether the github token is missing in the job?
+
+Add the missing token value
+
+Create the `cancel-release` job
+
+Commit and push changes
+
+Go to `github.com` and check the workflows
+
+Create new issue from web or terminal:
+
+    gh label create release
+    gh issue create --label release
+
+Check that workflow is not running
+
+Comment from web or terminal to cancel:
+
+    gh issue comment 4 --body /cancel
+
+Check that workflow is running as expected and the issue is closed
+
+Create new issue from web or terminal:
+
+    gh issue create --label release
+
+Comment from web or terminal to approve:
+
+    gh issue comment 5 --body /approve
+
+Check that the workflow is running, the release is approved and the custom
+action is executed
+
+## Part 6: Add the release request form
+
+Ask copilot:
+
+    how can i create a github issue form for releases with two parameters: release-version and target-environment?
+
+Paste the suggestion into a new file
+
+Fix validations
+
+Save it as `.github/ISSUE_TEMPLATE/release-form.yml`
+
+Commit
+
+Ask copilot:
+
+    how can I read issue form input parameters in a github action?
+
+    that code is not working. could you double check for alternate methods to access issue form parameters from the workflow?
+
+    is there any reusable action in the marketplace to parse issue forms?
+
+    could you show how to rewrite the issue form parsing by using the onmax/issue-form-parser action?
+
+It seems that GitHub Copilot is not capable to provide the right suggestion to
+read the input parameters from the form
+
+Commit and push
+
+Create a release issue and approve
+
+Check that the workflow is running, the release is approved and the custom
+action is executed using as input parameters those coming from the issue form

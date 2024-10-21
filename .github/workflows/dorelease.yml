@@ -27,7 +27,7 @@ jobs:
           FORM: ${{ steps.parse_form.outputs.payload }}
         with:
           script: |
-            const parsedForm = JSON.parse('${{ env.FORM}}');
+            const parsedForm = JSON.parse('${{ env.FORM }}');
             const releaseVersion = parsedForm['Release Version'];
             const targetEnvironment = parsedForm['Target Environment'];
             core.info('Release request for issue: ${{ env.ISSUE_NUMBER }}');
