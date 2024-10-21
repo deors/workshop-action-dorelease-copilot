@@ -53,12 +53,16 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
-      - name: Test Local Action
-        id: test-action
+      - name: Perform the release process
+        id: dorelease
         uses: ./
         with:
-          milliseconds: 2000
+          release-version: 0.0.1-test
+          target-environment: ci-test
 
-      - name: Print Output
+      - name: Print Outputs
         id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+        run: |
+          echo "${{ steps.dorelease.outputs.time }}"
+          echo "${{ steps.dorelease.outputs.release-status }}"
+          echo "${{ steps.dorelease.outputs.target-url }}"
