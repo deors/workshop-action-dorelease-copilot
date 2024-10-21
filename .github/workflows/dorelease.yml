@@ -14,16 +14,34 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Log release approval
-        run:
-          echo "Release approved for issue ${{ github.event.issue.number }} by
-          ${{ github.event.comment.user.login }}"
+      - name: Extract Issue Form Parameters
+        id: parse_form
+        uses: onmax/issue-form-parser@v1.5
+        with:
+          issue_number: ${{ github.event.issue.number }}
+      - name: Log input parameters
+        uses: actions/github-script@v7.0.1
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          APPROVER: ${{ github.event.comment.user.login }}
+          FORM: ${{ steps.parse_form.outputs.payload }}
+        with:
+          script: |
+            const parsedForm = JSON.parse('${{ env.FORM}}');
+            const releaseVersion = parsedForm['Release Version'];
+            const targetEnvironment = parsedForm['Target Environment'];
+            core.info('Release request for issue: ${{ env.ISSUE_NUMBER }}');
+            core.info('  Approved by: ${{ env.APPROVER }}');
+            core.info('  Release Version: ' + releaseVersion);
+            core.info('  Target Environment: ' + targetEnvironment);
+            core.exportVariable('RELEASE_VERSION', releaseVersion);
+            core.exportVariable('TARGET_ENVIRONMENT', targetEnvironment);
       - name: Perform the release process
         id: dorelease
         uses: ./
         with:
-          release-version: '0.0.1-hardcoded' # This should be the version of the release
-          target-environment: 'test-hardcoded' # This should be the target environment for the release
+          release-version: ${{ env.RELEASE_VERSION }}
+          target-environment: ${{ env.TARGET_ENVIRONMENT }}
       - name: Log release results
         run: |
           echo "${{ steps.dorelease.outputs.time }}"
