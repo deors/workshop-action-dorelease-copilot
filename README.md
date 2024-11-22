@@ -9,7 +9,7 @@ First delivered as a live coding talk in OpenSlava 2024.
 
 Ask copilot:
 
-```
+```text
     hello. i would like to create a new github action using typescript. how can i start creating it? thanks.
 
     i need to create a github action with typescript. could you respond with a step by step plan to create a brand new github action?
@@ -31,7 +31,7 @@ Change into directory
 
 Run in terminal:
 
-```
+```bash
     npm install
 ```
 
@@ -41,7 +41,7 @@ Open the folder in code
 
 Ask copilot:
 
-```
+```text
     which files should i modify to customize the github action just created?
 ```
 
@@ -59,7 +59,7 @@ Modify `main.ts`
 
 Run in terminal:
 
-```
+```bash
     npm run build
     npm run
     npm run all
@@ -73,7 +73,7 @@ Optional: modify `readme.md`
 
 Ask copilot:
 
-```
+```text
     where are test files located in the project?
 ```
 
@@ -85,7 +85,7 @@ Click and modify `main.test.ts`:
 
 Run in terminal:
 
-```
+```bash
     npm run all
 ```
 
@@ -101,7 +101,7 @@ The CI workflow execution log confirms the problem
 
 Ask copilot:
 
-```
+```text
     where is the github action CI located?
 ```
 
@@ -111,7 +111,7 @@ Change input params
 
 Ask copilot:
 
-```
+```text
     how can i run multi-line commands in a github action?
 ```
 
@@ -125,7 +125,7 @@ Go to `github.com` and check the workflows
 
 Ask copilot:
 
-```
+```text
     i need to write a github workflow that runs when an issue with a 'release' label has a new or modified comment and the comment content is '/approve'. could you generate the code of the workflow? thanks.
 ```
 
@@ -135,7 +135,7 @@ Use the suggested code as starting point
 
 Ask copilot:
 
-```
+```text
     could you double check whether the #selection is correct, and if not, suggest an alternate way of filtering the job run?
 
     what is the latest version for the actions/checkout github action?
@@ -157,7 +157,7 @@ Add a step to close the issue
 
 Ask copilot:
 
-```
+```text
     could you check whether the github token is missing in the job?
 ```
 
@@ -171,7 +171,7 @@ Go to `github.com` and check the workflows
 
 Create new issue from web or terminal:
 
-```
+```bash
     gh label create release
     gh issue create --label release
 ```
@@ -180,7 +180,7 @@ Check that workflow is not running
 
 Comment from web or terminal to cancel:
 
-```
+```bash
     gh issue comment 4 --body /cancel
 ```
 
@@ -188,13 +188,13 @@ Check that workflow is running as expected and the issue is closed
 
 Create new issue from web or terminal:
 
-```
+```bash
     gh issue create --label release
 ```
 
 Comment from web or terminal to approve:
 
-```
+```bash
     gh issue comment 5 --body /approve
 ```
 
@@ -205,7 +205,7 @@ action is executed
 
 Ask copilot:
 
-```
+```text
     how can i create a github issue form for releases with two parameters: release-version and target-environment?
 ```
 
@@ -219,7 +219,7 @@ Commit
 
 Ask copilot:
 
-```
+```text
     how can I read issue form input parameters in a github action?
 
     that code is not working. could you double check for alternate methods to access issue form parameters from the workflow?
